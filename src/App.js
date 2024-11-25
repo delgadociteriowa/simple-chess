@@ -86,21 +86,37 @@ const App = () => {
   ];
 
   const [chessBoard, setChessBoard] = useState(initialChessState);
+  const [grabbedPiece, setGrabbedPiece] = useState('none');
+
+  const handleGrabPiece = () => {
+    setGrabbedPiece('A piece');
+  };
+
+  const handleDropPiece = () => {
+    setGrabbedPiece('none');
+  };
 
   return (
     <>
       <h1>Simple Chess Board</h1>
+      <h2>Selected Piece: {grabbedPiece}</h2>
       <div className='baseBoard'>
         {chessBoard.map((row, rowIndex) => (
           <Fragment key={rowIndex}>
             {row.map((square) => (
               <div key={square.position} className='squareBoard'>
-                <span
-                  className={square.symbol !== '0' ? 'piece' : 'emptySpace'}
-                  draggable={square.symbol === '0' ? false : true}
-                >
-                  {square.symbol}
-                </span>
+                {square.symbol === '0' ? (
+                  <span className='emptySpace'>A</span>
+                ) : (
+                  <span
+                    className='piece'
+                    draggable={true}
+                    onMouseDown={handleGrabPiece}
+                    onMouseUp={handleDropPiece}
+                  >
+                    {square.symbol}
+                  </span>
+                )}
               </div>
             ))}
           </Fragment>
@@ -111,5 +127,3 @@ const App = () => {
 };
 
 export default App;
-
-//Chess Text Symbols ♙♘♗♖♕♔♚♛♜♝♞♟ to Copy and Paste
