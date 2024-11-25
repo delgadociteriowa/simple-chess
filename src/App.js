@@ -87,60 +87,60 @@ const App = () => {
 
   const [chessBoard, setChessBoard] = useState(initialChessState);
   const [grabbedPiece, setGrabbedPiece] = useState({
-    piece: 'none',
-    symbol: 'none',
+    piece: '0',
+    symbol: '0',
   });
 
   const handleGrabPiece = (piece) => {
     setGrabbedPiece({ piece: piece.piece, symbol: piece.symbol });
   };
 
-  useEffect(() => {
-    const handleDropPiece = () => {
-      setGrabbedPiece({
-        piece: 'none',
-        symbol: 'none',
-      });
-    };
+  const handleSetPiece = (squareSelected) => {
+    if (squareSelected.piece !== '0') {
+      return;
+    }
+    setChessBoard(() => {
+      const newChessBoard = chessBoard.map((row) =>
+        row.map((square) => {
+          if (square.position === squareSelected.position) {
+            return {
+              ...square,
+              piece: grabbedPiece.piece,
+              symbol: grabbedPiece.symbol,
+            };
+          }
 
-    window.addEventListener('mouseup', handleDropPiece);
-    window.addEventListener('dragend', handleDropPiece);
+          if (square.piece === grabbedPiece.piece) {
+            return {
+              ...square,
+              piece: '0',
+              symbol: '0',
+            };
+          }
 
-    return () => {
-      window.removeEventListener('mouseup', handleDropPiece);
-      window.removeEventListener('dragend', handleDropPiece);
-    };
-  }, []);
-
-  // const handleDropPieceOnSquare = (square) => {
-  //   console.log('happens!');
-  //   if (grabbedPiece.piece === 'none' || square.piece !== '0') {
-  //     return;
-  //   }
-
-  //   setChessBoard(() => {
-  //     const newChessBoard = chessBoard.map((row) =>
-  //       row.map((s) =>
-  //         s.position === square.position
-  //           ? { ...s.position, piece: grabbedPiece.piece, symbol: grabbedPiece.symbol }
-  //           : s
-  //       )
-  //     );
-  //     return newChessBoard;
-  //   });
-  // };
+          return square;
+        })
+      );
+      return newChessBoard;
+    });
+  };
 
   return (
     <>
       <h1>Simple Chess Board</h1>
       <h2>
-        Selected Piece: {grabbedPiece.piece} {grabbedPiece.symbol}
+        Last Piece Selected: {grabbedPiece.piece} {grabbedPiece.symbol}
       </h2>
       <div className='baseBoard'>
         {chessBoard.map((row, rowIndex) => (
           <Fragment key={rowIndex}>
             {row.map((square) => (
-              <div key={square.position} className='squareBoard'>
+              <div
+                key={square.position}
+                className='squareBoard'
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => handleSetPiece(square)}
+              >
                 {square.symbol === '0' ? (
                   <span className='emptySpace'>{square.symbol}</span>
                 ) : (
