@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import './App.css';
 
 const App = () => {
@@ -86,33 +86,70 @@ const App = () => {
   ];
 
   const [chessBoard, setChessBoard] = useState(initialChessState);
-  const [grabbedPiece, setGrabbedPiece] = useState('none');
+  const [grabbedPiece, setGrabbedPiece] = useState({
+    piece: 'none',
+    symbol: 'none',
+  });
 
-  const handleGrabPiece = () => {
-    setGrabbedPiece('A piece');
+  const handleGrabPiece = (piece) => {
+    setGrabbedPiece({ piece: piece.piece, symbol: piece.symbol });
   };
 
-  const handleDropPiece = () => {
-    setGrabbedPiece('none');
-  };
+  useEffect(() => {
+    const handleDropPiece = () => {
+      setGrabbedPiece({
+        piece: 'none',
+        symbol: 'none',
+      });
+    };
+
+    window.addEventListener('mouseup', handleDropPiece);
+    window.addEventListener('dragend', handleDropPiece);
+
+    return () => {
+      window.removeEventListener('mouseup', handleDropPiece);
+      window.removeEventListener('dragend', handleDropPiece);
+    };
+  }, []);
+
+  // const handleDropPieceOnSquare = (square) => {
+  //   console.log('happens!');
+  //   if (grabbedPiece.piece === 'none' || square.piece !== '0') {
+  //     return;
+  //   }
+
+  //   setChessBoard(() => {
+  //     const newChessBoard = chessBoard.map((row) =>
+  //       row.map((s) =>
+  //         s.position === square.position
+  //           ? { ...s.position, piece: grabbedPiece.piece, symbol: grabbedPiece.symbol }
+  //           : s
+  //       )
+  //     );
+  //     return newChessBoard;
+  //   });
+  // };
 
   return (
     <>
       <h1>Simple Chess Board</h1>
-      <h2>Selected Piece: {grabbedPiece}</h2>
+      <h2>
+        Selected Piece: {grabbedPiece.piece} {grabbedPiece.symbol}
+      </h2>
       <div className='baseBoard'>
         {chessBoard.map((row, rowIndex) => (
           <Fragment key={rowIndex}>
             {row.map((square) => (
               <div key={square.position} className='squareBoard'>
                 {square.symbol === '0' ? (
-                  <span className='emptySpace'>A</span>
+                  <span className='emptySpace'>{square.symbol}</span>
                 ) : (
                   <span
                     className='piece'
                     draggable={true}
-                    onMouseDown={handleGrabPiece}
-                    onMouseUp={handleDropPiece}
+                    onMouseDown={() => {
+                      handleGrabPiece(square);
+                    }}
                   >
                     {square.symbol}
                   </span>
