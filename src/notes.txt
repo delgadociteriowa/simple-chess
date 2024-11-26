@@ -1,0 +1,3 @@
+  //   <h2>
+  //   Last Piece Selected: {grabbedPiece.piece} {grabbedPiece.symbol}
+  // </h2>

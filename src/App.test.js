@@ -9,7 +9,7 @@ describe('Simple Chess Board', () => {
 
   it('Shows Simple Chess Board title', () => {
     const title = screen.getByRole('heading', {
-      name: 'Simple Chess Board',
+      name: 'The Easy Chess Board',
     });
     expect(title).toBeInTheDocument();
   });

@@ -1,20 +1,55 @@
+body{
+  background-color: #b5dcab;
+}
+
+.title{
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 100;
+  font-size: 30px;
+  color: #131212;
+}
+
+.section{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.base{
+  background-color: #6f5545;
+  border: 2px solid #503d31;
+  padding: 28px;
+  border-radius: 10px;
+  margin-top: 10px;
+  -webkit-box-shadow: 0px 15px 40px -6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 15px 40px -6px rgba(0,0,0,0.75);
+  box-shadow: 0px 15px 40px -6px rgba(0,0,0,0.75);  
+}
+
 .baseBoard{
-  width: 400px;
-  height: 400px;
-  border: 2px solid blue;
-  padding: 5px;
+  width: 430px;
+  height: 430px;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 5px;
+  -webkit-box-shadow: 0px 5px 4px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 5px 4px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 5px 4px 0px rgba(0,0,0,0.75);
 }
 
 .squareBoard {
-  border: 1px solid black;
   padding: 10px;
-  font-size: 18px;
+  font-size: 25px;
+  border: 1px solid #858585;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.gray{
+  background-color: #bababa;
+}
+.white{
+  background-color: #ffffff;
 }
 
 .piece {
@@ -22,5 +57,6 @@
 }
 .emptySpace {
   cursor: default;
+  visibility: hidden;
 }
 
