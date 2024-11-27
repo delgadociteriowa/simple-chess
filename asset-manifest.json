@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/simple-chess/static/css/main.bf0ce28b.css",
+    "main.js": "/simple-chess/static/js/main.b00d1cfe.js",
+    "static/js/453.5534f759.chunk.js": "/simple-chess/static/js/453.5534f759.chunk.js",
+    "index.html": "/simple-chess/index.html",
+    "main.bf0ce28b.css.map": "/simple-chess/static/css/main.bf0ce28b.css.map",
+    "main.b00d1cfe.js.map": "/simple-chess/static/js/main.b00d1cfe.js.map",
+    "453.5534f759.chunk.js.map": "/simple-chess/static/js/453.5534f759.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf0ce28b.css",
+    "static/js/main.b00d1cfe.js"
+  ]
+}
